@@ -1,12 +1,11 @@
-m birch
+birch
+________________________________________________________________________________
 
-An IRC client written in bash.
+An IRC client written in bash patched to work best in my case.
 
-![scrot](https://user-images.githubusercontent.com/6799467/75714877-2793ab80-5cd5-11ea-8aad-92d7f245bdaf.jpg)
+features
+________________________________________________________________________________
 
-## Features
-
-```
 * Full power of readline for input and keybindings. 
 
   This is thanks to bash's `read -e`. Birch will read a readline
@@ -25,11 +24,10 @@ An IRC client written in bash.
   All nicks are colored based on their length. The length is mapped
   to a color between 1 and 6 which is then used as input for 
   '\033[1;3<mapped_col>m'.
-```
 
-## Caveats (or limitations)
+caveats
+________________________________________________________________________________
 
-```
 * Nick column is fixed and truncated to 10 columns wide.
   
   This is something fixable down the line. It merely serves to
@@ -60,12 +58,10 @@ An IRC client written in bash.
 
   The network connection is through bash's builtin /dev/tcp
   feature which doesn't allow for SSL.
-```
 
+interesting facts
+________________________________________________________________________________
 
-## Interesting facts
-
-```
 * Connection to the IRC server happens without external
   utilities.
 
@@ -117,35 +113,40 @@ An IRC client written in bash.
   Birch has gone through a lot of rewrites to get this perfect.
   Fun fact: The older revisions read input char by char and
   implemented a lot of readline by hand.
-```
+
+usage
+________________________________________________________________________________
+
+ +------------------------------------------------------+
+ |                                                      |
+ |  $ birch -h                                          |
+ |                                                      |
+ |  birch <args>                                        |
+ |                                                      | 
+ |   -s <host>                                          |
+ |   -c <channel>                                       |
+ |   -u <nick>                                          |
+ |   -p <server_password>                               |
+ |   -U <server_username>                               |
+ |   -P <port>                                          |
+ |   -x <cmd>                                           |
+ |                                                      |
+ |   -h (help)                                          |
+ |   -v (version)                                       |
+ |                                                      |
+ +------------------------------------------------------+
 
 
-## Usage
-
-```sh
-birch <args>
-
--s <host>
--c <channel>
--u <nick>
--p <server_password>
--U <server_username>
--P <port>
--x <cmd>
-
--h (help)
--v (version)
-```
-
-## Dependencies
+dependencies
+________________________________________________________________________________
 
 - `bash 4+`
 - POSIX compatible `fold`, `rm`
 
 
-## Keybindings
+keybindings
+________________________________________________________________________________
 
-```
 Ctrl+n - Next buffer.
 Ctrl+p - Previous buffer.
 Tab    - Completion of nicks and channels.
@@ -157,12 +158,10 @@ Keybindings to birch may also be set via a .inputrc file. Which
 can be configured by setting `$BIRCH_INPUTRC`.
 
 (BIRCH_INPUTRC=/path/to/birch-inputrc birch)
-```
 
+commands
+________________________________________________________________________________
 
-## Commands
-
-```
 Channels:
 
 /join <channel>       - Join a channel.
@@ -187,12 +186,11 @@ Other:
 /topic                - Display channel topic.
 /away <message>       - Set afk message.
 /raw <args>           - Send a raw IRC message.
-```
 
 
-## Customization
+customization
+________________________________________________________________________________
 
-```
 (These are environment variables.)
 
 # Set the formatting of the tab line's selected item.
@@ -204,4 +202,4 @@ BIRCH_STATUS='\e[7m'
 #
 # See http://man7.org/linux/man-pages/man3/readline.3.html
 BIRCH_INPUTRC=/path/to/file
-```
+
