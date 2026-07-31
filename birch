@@ -390,7 +390,7 @@ args() {
             printf -- '-v (version)\n'
         ;;
 
-        v) printf 'birch 0.0.1\n' ;;
+        v) printf 'birch 0.0.2\n' ;;
         :) printf 'Option -%s requires an argument\n' "$OPTARG" >&2 ;;
         *) declare -g "$opt=$OPTARG"
     esac; [[ $opt =~ \?|v|: ]] && exit; done
