@@ -3,9 +3,6 @@
 # birch-patched - a simple irc client in bash patched to work
 
 clean() {
-    # Notify to IRC server before closing the connection.
-    printf 'QUIT :Leaving\n' >&9 2>/dev/null
-
     # '\e[?7h':    Re-enable line wrapping.
     # '\e[2J':     Clear the screen.
     # '\e[;r':     Reset the scroll area.
@@ -188,6 +185,7 @@ cmd() {
 
         '/quit'*)
             send "QUIT :$a $args"
+	    sleep 0.2
             clean
          ;;
 
@@ -390,7 +388,7 @@ args() {
             printf -- '-v (version)\n'
         ;;
 
-        v) printf 'birch 0.0.3\n' ;;
+        v) printf 'birch 0.0.4\n' ;;
         :) printf 'Option -%s requires an argument\n' "$OPTARG" >&2 ;;
         *) declare -g "$opt=$OPTARG"
     esac; [[ $opt =~ \?|v|: ]] && exit; done
