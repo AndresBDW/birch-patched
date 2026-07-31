@@ -222,6 +222,56 @@ cmd() {
             send "AWAY"
         ;;
 
+	'/reconnect'*)
+            printf 'QUIT :Reconnecting\n' >&9 2>/dev/null
+            exec 9>&-
+
+            jobs -p | while read -r pid; do
+                [[ $pid != $$ ]] && kill "$pid" 2>/dev/null
+            done
+
+	    sleep 0.5
+
+            connect
+
+            while read -sru 9; do
+                parse "${REPLY%%$'\r'*}"
+            done &
+
+            prin "-- Reconnected to the server"
+	;;
+
+	'/rejoin'*)
+            printf '%s PART %s :Rejoining\n' "$nick" "$chan" >&9
+            sleep 0.5
+
+            printf 'JOIN %s\n' "$chan" >&9
+        ;;
+
+	'/motd'*)
+            printf 'MOTD\n' >&9
+        ;;
+	
+	'/help'*)
+	    prin "HELP Birch Command List:"
+	    prin "-- /join <channel>     - join a channel"
+	    prin "-- /nick <nick>        - changes your nick"
+	    prin "-- /msg <nick> <msg>   - send priv msg"
+	    prin "-- /raw                - send raw irc msg/id"
+	    prin "-- /me <msg>           - send an action"
+	    prin "-- /part <channel>     - leave a channel"
+	    prin "-- /quit               - get out of birch"
+	    prin "-- /next               - next buffer"
+	    prin "-- /prev               - previous buffer"
+	    prin "-- /[0-9]              - buffer by number"
+	    prin "-- /names              - display all nicks in the channel"
+	    prin "-- /topic              - display topic"
+	    prin "-- /away               - set afk message"
+	    prin "-- /reconnect          - reconnect server"
+	    prin "-- /rejoin             - rejoin current channel"
+	    prin "-- /motd               - shows motd"
+	;;
+
         /*)
             send "NOTICE :${1/ *} not implemented yet"
         ;;
@@ -388,7 +438,7 @@ args() {
             printf -- '-v (version)\n'
         ;;
 
-        v) printf 'birch 0.0.4\n' ;;
+        v) printf 'birch-patched 0.0.5\n' ;;
         :) printf 'Option -%s requires an argument\n' "$OPTARG" >&2 ;;
         *) declare -g "$opt=$OPTARG"
     esac; [[ $opt =~ \?|v|: ]] && exit; done

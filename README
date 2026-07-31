@@ -203,3 +203,17 @@ BIRCH_STATUS='\e[7m'
 # See http://man7.org/linux/man-pages/man3/readline.3.html
 BIRCH_INPUTRC=/path/to/file
 
+
+patches applied
+________________________________________________________________________________
+
+i wrote all these patches by hand, since there are no existing patches for 
+Birch—as it is a small project. here is the list of changes made:
+
+ * new /help
+ * /quit works better and it no longer has errors where the client doesn't exit properly
+ * new /reconnect 
+ * a mktmp bug that wouldn't let me log into Birch
+ * default irc server (freenode) changed to libera.
+ * new /rejoin
+ * new /motd
