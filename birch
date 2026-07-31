@@ -3,6 +3,9 @@
 # birch-patched - a simple irc client in bash patched to work
 
 clean() {
+    # Notify to IRC server before closing the connection.
+    printf 'QUIT :Leaving\n' >&9 2>/dev/null
+
     # '\e[?7h':    Re-enable line wrapping.
     # '\e[2J':     Clear the screen.
     # '\e[;r':     Reset the scroll area.
